@@ -14,16 +14,16 @@ import (
 func main() {
 	arguments := os.Args
 	if len(arguments) == 1 {
-		fmt.Println("Please provide a host:port string")
+		fmt.Println("Please provide a host:port string.")
 		fmt.Scan(&arguments)
 	}
 	address := arguments[1]
 
-	ser, err := net.ResolveUDPAddr("udp4", address)
+	s, err := net.ResolveUDPAddr("udp4", address)
 	if err != nil {
 		fmt.Println("Connection to UDP address failed:", err.Error())
 		os.Exit(1)
 	}
 
-	writer.Writer(ser)
+	writer.Writer(s)
 }
