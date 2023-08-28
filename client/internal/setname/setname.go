@@ -1,4 +1,4 @@
-package internal
+package setname
 
 import "fmt"
 
@@ -6,7 +6,7 @@ type client struct {
 	name string
 }
 
-func setName() string {
+func SetName() string {
 	var newName string
 	fmt.Print("Please enter your nickname:")
 	fmt.Scan(&newName)
