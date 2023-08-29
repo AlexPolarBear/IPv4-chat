@@ -17,7 +17,7 @@ const BufferSize = 1000
 func Writer(s *net.UDPAddr) {
 	c, err := net.DialUDP("udp4", nil, s)
 	if err != nil {
-		fmt.Println("Listen failed:", err.Error())
+		fmt.Println("Listen failed: ", err.Error())
 		os.Exit(1)
 	}
 
@@ -26,29 +26,22 @@ func Writer(s *net.UDPAddr) {
 	fmt.Printf("The UDP server is %s\n", c.RemoteAddr().String())
 	defer c.Close()
 
+	fmt.Println("Name: " + nickname)
 	for {
 		reader := bufio.NewReader(os.Stdin)
-		fmt.Println("Name: " + nickname)
-		fmt.Print(">>")
+		fmt.Print(">> ")
 		text, _ := reader.ReadString('\n')
-		data := []byte("Name: " + nickname + "\n" + text + "\n")
+		msg := "User: " + nickname + "\n" + "Msg: " + text + "\n\n"
+		data := []byte(msg)
 		_, err := c.Write(data)
 		if err != nil {
-			fmt.Println("Write data failed:", err.Error())
+			fmt.Println("Write data failed: ", err.Error())
 			os.Exit(1)
 		}
-		if strings.TrimSpace(string(data)) == "STOP" {
+
+		if strings.Contains(strings.TrimSpace(string(data)), "STOP") {
 			fmt.Println("Exiting UDP client!")
 			return
 		}
-
-		// buffer to get data
-		buffer := make([]byte, BufferSize)
-		n, _, err := c.ReadFromUDP(buffer)
-		if err != nil {
-			fmt.Println("Read data faild:", err.Error())
-			os.Exit(1)
-		}
-		fmt.Printf("Reply: %s\n", string(buffer[0:n]))
 	}
 }

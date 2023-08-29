@@ -33,13 +33,12 @@ func Reader(s *net.UDPAddr) {
 		}
 		fmt.Print("-> ", string(buffer[0:n-1]))
 
-		if strings.TrimSpace(string(buffer[0:n])) == "STOP" {
+		if strings.Contains(strings.TrimSpace(string(buffer)), "STOP") {
 			fmt.Println("Exiting UDP server!")
 			return
 		}
 
 		data := []byte(strconv.Itoa(BufferSize))
-		fmt.Printf("data: %s\n", string(data))
 		_, err = c.WriteToUDP(data, addr)
 		if err != nil {
 			fmt.Println(err)

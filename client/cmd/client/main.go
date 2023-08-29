@@ -15,7 +15,7 @@ func main() {
 	arguments := os.Args
 	if len(arguments) == 1 {
 		fmt.Println("Please provide a host:port string.")
-		fmt.Scan(&arguments)
+		return
 	}
 	address := arguments[1]
 

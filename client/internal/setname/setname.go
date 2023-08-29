@@ -8,8 +8,8 @@ type client struct {
 
 func SetName() string {
 	var newName string
-	fmt.Print("Please enter your nickname:")
-	fmt.Scan(&newName)
+	fmt.Print("Please enter your nickname: ")
+	fmt.Scanln(&newName)
 	newClient := client{
 		name: newName,
 	}
