@@ -10,9 +10,11 @@ import (
 	"time"
 )
 
-// Using a maximum size of buffer-massage.
+// Using buffer size limits of message.
 const BufferSize = 1000
 
+// This method accepts messages from the client
+// and displays them on the screen.
 func Reader(s *net.UDPAddr) {
 	c, err := net.ListenUDP("udp4", s)
 	if err != nil {
@@ -33,7 +35,7 @@ func Reader(s *net.UDPAddr) {
 		}
 		fmt.Print("-> ", string(buffer[0:n-1]))
 
-		if strings.Contains(strings.TrimSpace(string(buffer)), "STOP") {
+		if strings.Contains(strings.TrimSpace(string(buffer)), "STOP_SER") {
 			fmt.Println("Exiting UDP server!")
 			return
 		}
@@ -41,7 +43,7 @@ func Reader(s *net.UDPAddr) {
 		data := []byte(strconv.Itoa(BufferSize))
 		_, err = c.WriteToUDP(data, addr)
 		if err != nil {
-			fmt.Println(err)
+			fmt.Println(err.Error())
 			os.Exit(1)
 		}
 	}

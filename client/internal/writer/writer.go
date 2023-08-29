@@ -7,13 +7,14 @@ import (
 	"os"
 	"strings"
 
-	"github.com/my/repo/Desktop/IPv4chat/IP4-chat/client/internal/setname"
+	"github.com/my/repo/Desktop/IPv4chat/IPv4-chat/client/internal/setname"
 )
 
-// Using a maximum size of buffer-massage.
+// Using buffer size limits of message.
 const BufferSize = 1000
 
-// Connect to UDP and send massages
+// This method connect to UDP server from the client
+// and can send messages in UDP channel.
 func Writer(s *net.UDPAddr) {
 	c, err := net.DialUDP("udp4", nil, s)
 	if err != nil {
